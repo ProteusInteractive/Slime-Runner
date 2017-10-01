@@ -15,7 +15,5 @@ public static class HexMetrics
         new Vector3(-0.5f * outerRadius, 0f, innerRadius),
         new Vector3(0.5f * outerRadius, 0f, innerRadius)
     };
-	
-
 
 }
