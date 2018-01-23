@@ -28,21 +28,22 @@ public class player : MonoBehaviour {
         //TODO reset the player to origin
     }
 
-    void UpdateHealth(int damage)
+    void UpdateHealth(int healthChange)
     {
-        Mathf.Clamp(health, 0, 12);
+        health += healthChange;
+        health = (int)Mathf.Clamp(health, 0f, 12f);
     }
 
     void HealthRegen()
     {
-        Mathf.Clamp(health, 0, 12); //ensure health doesnt exceed 12
+        
         timeSinceRegen += Time.deltaTime; //reset timer to zero
         
         if ( timeSinceRegen > timer )
         {
-            health += 1;
+            UpdateHealth(1);
             timeSinceRegen = 0f;
-            //health = healthText;
+            healthText.text = "Health : " + health.ToString();
         }
     }
 

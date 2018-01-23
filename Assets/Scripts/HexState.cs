@@ -10,30 +10,50 @@ using UnityEngine;
 public class HexState : MonoBehaviour {
 
     public enum hexState { up, down, neut }; //whether the hex is raised, lowered or neutral
-    private float hexTranslate = 2f; //the amount the hex moves up and down 
-    public string change;
+    public hexState state;
+    private float hexTranslate = 1f; //the amount the hex moves up and down 
+    public float healthChange = -1f;
     
     void Start ()
-    {	
+    {
+        state = hexState.neut;
+        //TODO create an array of the hexes and set them (with procedural algo) to neut, up, down
+
 	}
 
 	void Update ()
     {
-        hexMove();
+        //hexMove();
 	}
 
     public void hexStateChange()
     {
-       
-    }
+        //switch (state)
+        //{
+            //case hexState.up:
+            //    gameObject.transform.position += new Vector3(0f, 1f, 0f);
+            //    break;
+            //case hexState.neut:
+            //    transform.position.y = 0f;
+            //    break;
+            //case hexState.down:
+            //    transform.position.y = -1f;
+            //default:
+            //    break;
 
-    void checkMessage()
-    {
+            //    //every frame if raycast is hit on that hex
+            //    //if state = down or neut then we can raise, if state = neut or up then we can lower
+            //    //if player presses button
+            //    //if we raise / lower, apply position change
+        }
 
-    }
+    //void checkMessage()
+    //{
 
-    void hexMove()
-    {
+    //}
 
-    }
+    //void hexMove()
+    //{
+
+    //}
 }

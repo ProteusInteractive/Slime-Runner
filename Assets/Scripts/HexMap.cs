@@ -28,8 +28,8 @@ public class HexMap : MonoBehaviour {
                 GameObject hexGO = (GameObject)Instantiate
                     (
                     HexPrefab, 
-                    h.Position(), 
-                    Quaternion.identity, 
+                    h.Position(),
+                    Quaternion.Euler(90f, 0f, 30f), 
                     this.transform
                     );
 
