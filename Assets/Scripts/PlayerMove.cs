@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         Move();
+		DoRay();
         hexMove();
     }
 
@@ -33,31 +34,31 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetAxis("Horizontal") != 0)
         {
             transform.Rotate(0f, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0f);
-        }
-        DoRay();
+        }        
     }
 
     private void DoRay()
     {
+		RaycastHit hitInfo;
         if (fwdLastMove)
         {
-            Vector3 fwdDir = Quaternion.Euler(0, -45f, 0) * transform.forward;
-            //if (Physics.Raycast(transform.position, fwdDir, out RaycastHit hitInfo, 5))
-            //{
-            //    Vector3 RayTile = hitInfo.collider.transform.position;
-                
-            //}
+			Vector3 fwdDir = transform.forward - transform.up;
+			Debug.DrawRay (transform.position, fwdDir, Color.red);
+			if (Physics.Raycast(transform.position, fwdDir, out hitInfo, 5))
+            {
+				Vector3 RayTile = hitInfo.point;
+				print (RayTile);
+            }
         }
-        else
+		else 
         {
-            Vector3 bckDir = Quaternion.Euler(0, -45f, 0) * -transform.forward;
-            //if (Physics.Raycast(transform.position, bckDir, out RaycastHit hitInfo, 5))
-            //{
-            //    Vector3 RayTile = hitInfo.collider.transform.position;
-
-            //}
+			Vector3 bckDir = -transform.forward - transform.up;
+			Debug.DrawRay (transform.position, bckDir, Color.red);
+			if (Physics.Raycast(transform.position, bckDir, out hitInfo, 5))
+            {
+				Vector3 RayTile = hitInfo.point;
+            }
         }
-        
     }
 
     void hexMove()
