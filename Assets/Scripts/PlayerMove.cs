@@ -130,30 +130,34 @@ public class PlayerMove : MonoBehaviour
         else if (Input.GetKeyDown("Lower"))
         {
             RaiseOrLower = false;
-
         }
 
-        //switch (targetHexElevation)
-        //{
-        //    case HexState.ElevationState.up:
-        //        if()
-        //}
+        switch (targetHexElevation)
+        {
+            case HexState.ElevationState.up:
+                if (!RaiseOrLower)
+                {
+                    targetState.elevation = HexState.ElevationState.neut;
+                }
+                break;
+            case HexState.ElevationState.neut:
+                if (RaiseOrLower)
+                {
+                    targetState.elevation = HexState.ElevationState.up;
+                }
+                else
+                {
+                    targetState.elevation = HexState.ElevationState.down;
+                }
+                break;
+            case HexState.ElevationState.down:
+                if (RaiseOrLower)
+                {
+                    targetState.elevation = HexState.ElevationState.neut;
+                }
+                break;
+        }
+        print("State: " + (int)targetState.elevation + "RaiseOrLower: " + RaiseOrLower);
 
-
-
-
-
-
-
-
-        //if (canRaise && Input.GetKeyDown("Raise"))
-        //{
-        //    targetState.elevation++;
-        //}
-
-        //if (canLower && Input.GetKeyDown("Lower"))
-        //{
-        //    targetState.elevation--;
-        //}
     }
 }
