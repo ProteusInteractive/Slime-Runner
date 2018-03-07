@@ -8,71 +8,152 @@ public class PlayerMove : MonoBehaviour
     public float backSpeed = 15f;
     public float turnSpeed = 200f;
 
-    public bool fwdLastMove = true;
+    private float verticalCurrentFrame = 0;
+    private float horizontalCurrentFrame = 0;
+
+    private HexState targetState;
+    private HexState.ElevationState targetHexElevation;
+
+    private bool fwdLastMove = true;
+    private bool canMove = true;
+    private bool RaiseOrLower = true;
+
     public enum hexChange { raise, lower };
 
     void Update()
     {
-        Move();
-		DoRay();
+        InputUpdate();
+        DoRay();
+        Move();        
         hexMove();
     }
 
-    void Move()
+    void InputUpdate()
     {
-        if (Input.GetAxis("Vertical") > 0)
+        verticalCurrentFrame = Input.GetAxis("Vertical");
+        horizontalCurrentFrame = Input.GetAxis("Horizontal");
+
+        if (verticalCurrentFrame >= 0)
         {
-            transform.position += transform.forward * Input.GetAxis("Vertical") * forwardSpeed * Time.deltaTime;
             fwdLastMove = true;
         }
-        else if (Input.GetAxis("Vertical") < 0)
+        else if (verticalCurrentFrame < 0)
         {
-            transform.position += transform.forward * Input.GetAxis("Vertical") * backSpeed * Time.deltaTime;
             fwdLastMove = false;
         }
-
-        if (Input.GetAxis("Horizontal") != 0)
-        {
-            transform.Rotate(0f, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0f);
-        }        
     }
 
     private void DoRay()
     {
-		RaycastHit hitInfo;
+        RaycastHit hitInfo;
         if (fwdLastMove)
         {
-			Vector3 fwdDir = transform.forward - transform.up;
-			Debug.DrawRay (transform.position, fwdDir, Color.red);
-			if (Physics.Raycast(transform.position, fwdDir, out hitInfo, 5))
+            Vector3 fwdDir = transform.forward - transform.up;
+            Debug.DrawRay(transform.position, fwdDir, Color.red);
+            if (Physics.Raycast(transform.position, fwdDir, out hitInfo, 5))
             {
-				Vector3 RayTile = hitInfo.point;
-				print (RayTile);
+                targetState = hitInfo.transform.gameObject.GetComponent<HexState>();
+                targetHexElevation = targetState.elevation;
+
+                if (targetHexElevation == HexState.ElevationState.neut) //if elevation in HexState.class is neut
+                {
+                    canMove = true;
+                }
+                else
+                {
+                    canMove = false;
+                }
+            }
+            else
+            {
+                canMove = false;
             }
         }
-		else 
+        else
         {
-			Vector3 bckDir = -transform.forward - transform.up;
-			Debug.DrawRay (transform.position, bckDir, Color.red);
-			if (Physics.Raycast(transform.position, bckDir, out hitInfo, 5))
+            Vector3 bckDir = -transform.forward - transform.up;
+            Debug.DrawRay(transform.position, bckDir, Color.red);
+            if (Physics.Raycast(transform.position, bckDir, out hitInfo, 5))
             {
-				Vector3 RayTile = hitInfo.point;
+                targetState = hitInfo.transform.gameObject.GetComponent<HexState>();
+                targetHexElevation = targetState.elevation;
+
+                if (targetHexElevation == HexState.ElevationState.neut) //if elevation in HexState.class is neut
+                {
+                    canMove = true;
+                }
+                else
+                {
+                    canMove = false;
+                }
+            }
+            else
+            {
+                canMove = false;
             }
         }
+
+        //if (targetHexElevation == HexState.ElevationState.down || targetHexElevation == HexState.ElevationState.neut)
+        //{
+        //    canRaise = true;
+        //}
+        //else if (targetHexElevation == HexState.ElevationState.up || targetHexElevation == HexState.ElevationState.neut)
+        //{
+        //    canLower = true;
+        //}
+
+    }
+
+    void Move()
+    {
+        if (verticalCurrentFrame > 0 && canMove)
+        {
+            transform.position += transform.forward * verticalCurrentFrame * forwardSpeed * Time.deltaTime;
+        }
+        else if (verticalCurrentFrame < 0 && canMove)
+        {
+            transform.position += transform.forward * verticalCurrentFrame * backSpeed * Time.deltaTime;
+        }
+
+        if (horizontalCurrentFrame != 0)
+        {
+            transform.Rotate(0f, horizontalCurrentFrame * turnSpeed * Time.deltaTime, 0f);
+        }        
     }
 
     void hexMove()
     {
         if (Input.GetKeyDown("Raise"))
         {
-
+            RaiseOrLower = true;
         }
-
-        if (Input.GetKeyDown("Lower"))
+        else if (Input.GetKeyDown("Lower"))
         {
+            RaiseOrLower = false;
 
         }
 
+        //switch (targetHexElevation)
+        //{
+        //    case HexState.ElevationState.up:
+        //        if()
+        //}
 
+
+
+
+
+
+
+
+        //if (canRaise && Input.GetKeyDown("Raise"))
+        //{
+        //    targetState.elevation++;
+        //}
+
+        //if (canLower && Input.GetKeyDown("Lower"))
+        //{
+        //    targetState.elevation--;
+        //}
     }
 }

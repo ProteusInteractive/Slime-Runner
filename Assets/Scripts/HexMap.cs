@@ -25,17 +25,13 @@ public class HexMap : MonoBehaviour {
             {
                 Hex h = new Hex(column, row);
 
-                GameObject hexGO = (GameObject)Instantiate
-                    (
-                    HexPrefab, 
-                    h.Position(),
-                    Quaternion.Euler(90f, 0f, 30f), 
-                    this.transform
-                    );
+                GameObject hexGO = Instantiate ( HexPrefab, h.Position(), Quaternion.Euler(90f, 0f, 30f), this.transform );
 
+                hexGO.name = "Hex." + column + "."+ row;
                 MeshRenderer mr = hexGO.GetComponentInChildren<MeshRenderer>();
                 mr.material = HexMaterials[Random.Range(0, HexMaterials.Length)];
             }
         }
     }
+
 }

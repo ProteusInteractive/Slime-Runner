@@ -9,51 +9,49 @@ using UnityEngine;
 /// </summary>
 public class HexState : MonoBehaviour {
 
-    public enum hexState { up, down, neut }; //whether the hex is raised, lowered or neutral
-    public hexState state;
+    public enum ElevationState { down, neut, up };
+    public ElevationState elevation;
+    private int yPos;
+    private Vector3 curPos;
+
     private float hexTranslate = 1f; //the amount the hex moves up and down 
-    public float healthChange = -1f;
-    
+    public float healthChange = -1f; //if player interacts (raises/lowers the hex) they lose this much health
+
     void Start ()
     {
-        state = hexState.neut;
-        //TODO create an array of the hexes and set them (with procedural algo) to neut, up, down
 
 	}
 
 	void Update ()
     {
-        //hexMove();
+        hexStateChange();
 	}
 
     public void hexStateChange()
     {
-        //switch (state)
-        //{
-            //case hexState.up:
-            //    gameObject.transform.position += new Vector3(0f, 1f, 0f);
-            //    break;
-            //case hexState.neut:
-            //    transform.position.y = 0f;
-            //    break;
-            //case hexState.down:
-            //    transform.position.y = -1f;
-            //default:
-            //    break;
 
-            //    //every frame if raycast is hit on that hex
-            //    //if state = down or neut then we can raise, if state = neut or up then we can lower
-            //    //if player presses button
-            //    //if we raise / lower, apply position change
+        switch (elevation)
+        {
+            case ElevationState.down:
+                yPos = -1; 
+                break;
+
+            case ElevationState.neut:
+                yPos = 0; 
+                break;
+
+            case ElevationState.up:
+                yPos = 1; 
+                break;
         }
 
-    //void checkMessage()
-    //{
+        curPos = this.transform.position;
+        this.transform.position = new Vector3(curPos.x, yPos, curPos.z);
 
-    //}
+        //    //every frame if raycast is hit on that hex
+        //    //if state = down or neut then we can raise, if state = neut or up then we can lower
+        //    //if player presses button
+        //    //if we raise / lower, apply position change
+    }
 
-    //void hexMove()
-    //{
-
-    //}
 }

@@ -8,10 +8,9 @@ using UnityEngine;
 /// However, it does not interact with Unity directly in any way.
 /// </summary>
 
-public class Hex
+public class Hex : MonoBehaviour
 {
     // Q + R + S = 0
-
     public Hex(int q, int r)
     {
         this.Q = q;
@@ -24,7 +23,7 @@ public class Hex
     public readonly int S;
 
     static readonly float HEIGHT_MULTIPLIER = Mathf.Sqrt(3) / 2;
-
+  
     /// <summary>
     /// returns the world space position of this hex
     /// </summary>
@@ -39,5 +38,4 @@ public class Hex
 
         return new Vector3(vert * this.R, 0, horiz * (this.Q + this.R / 2f));
     }
-
 }
