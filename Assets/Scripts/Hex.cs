@@ -8,7 +8,7 @@ using UnityEngine;
 /// However, it does not interact with Unity directly in any way.
 /// </summary>
 
-public class Hex : MonoBehaviour
+public class Hex
 {
     // Q + R + S = 0
     public Hex(int q, int r)

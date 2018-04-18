@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Move : MonoBehaviour
 {
     public float forwardSpeed = 20f;
     public float backSpeed = 15f;
@@ -24,7 +24,7 @@ public class PlayerMove : MonoBehaviour
     {
         InputUpdate();
         DoRay();
-        Move();        
+        DoMove();        
         hexMove();
     }
 
@@ -104,7 +104,7 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-    void Move()
+    void DoMove()
     {
         if (verticalCurrentFrame > 0 && canMove)
         {
@@ -157,7 +157,7 @@ public class PlayerMove : MonoBehaviour
                 }
                 break;
         }
-        print("State: " + (int)targetState.elevation + "RaiseOrLower: " + RaiseOrLower);
+        print("State: " + (int)targetState.elevation + "RaiseOrLower: " + RaiseOrLower);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
     }
 }
