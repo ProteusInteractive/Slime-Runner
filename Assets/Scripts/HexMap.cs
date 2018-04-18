@@ -14,7 +14,7 @@ public class HexMap : MonoBehaviour {
 
     public Material[] HexMaterials;
 
-    int mapHeight = 60;
+    int mapHeight = 500;
     int mapWidth = 20;
 
     public void GenerateMap()

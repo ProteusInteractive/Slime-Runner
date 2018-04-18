@@ -55,6 +55,11 @@ public class Move : MonoBehaviour
                 targetState = hitInfo.transform.gameObject.GetComponent<HexState>();
                 targetHexElevation = targetState.elevation;
 
+                //TODO
+                // serialisable movementRules [] = {up, down} 
+                // for each m in movementRules
+                // run the if statement below
+                // if(movementRules == targetHexElevation) {canMove = true}
                 if (targetHexElevation == HexState.ElevationState.neut) //if elevation in HexState.class is neut
                 {
                     canMove = true;
@@ -157,7 +162,6 @@ public class Move : MonoBehaviour
                 }
                 break;
         }
-        print("State: " + (int)targetState.elevation + "RaiseOrLower: " + RaiseOrLower);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-
+        print("State: " + (int)targetState.elevation + "RaiseOrLower: " + RaiseOrLower);
     }
 }
